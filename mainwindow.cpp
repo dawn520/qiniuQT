@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include <QCloseEvent>
 #include <QFile>
 #include <QFileDialog>
 #include <QMessageBox>
@@ -12,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    setWindowTitle(tr("七牛上传工具"));
+    setWindowTitle("七牛上传工具 [*]");
 
     openAction = new QAction(QIcon(":/resource/images/files_open"), tr("&打开文件"), this);
     openAction->setShortcuts(QKeySequence::Open);
@@ -32,6 +33,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     textEdit = new QTextEdit(this);
     setCentralWidget(textEdit);
+
+    connect(textEdit, &QTextEdit::textChanged, [=]() {
+        this->setWindowModified(true);
+    });
 
     connect(openAction, &QAction::triggered, this, &MainWindow::openFile);
     connect(saveAction, &QAction::triggered, this, &MainWindow::saveFile);
@@ -86,5 +91,23 @@ void MainWindow::saveFile()
     } else {
         QMessageBox::warning(this, tr("Path"),
                              tr("You did not select any file."));
+    }
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    if (isWindowModified()) {
+        bool exit = QMessageBox::question(this,
+                                      tr("Quit"),
+                                      tr("Are you sure to quit this application?"),
+                                      QMessageBox::Yes | QMessageBox::No,
+                                      QMessageBox::No) == QMessageBox::Yes;
+        if (exit) {
+            event->accept();
+        } else {
+            event->ignore();
+        }
+    } else {
+        event->accept();
     }
 }
