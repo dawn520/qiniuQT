@@ -4,11 +4,13 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QTextStream>
+#include "iostream"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    MainWindow::setFixedSize(this->width(), this->height());  //这种最好。
     ui->setupUi(this);
     connect(ui->DirButton, &QPushButton::clicked, this, &MainWindow::openFile);
     connect(ui->UploadButton, &QPushButton::clicked, this, &MainWindow::showMessage);
@@ -36,4 +38,5 @@ void MainWindow::showMessage(){
 
    QMessageBox::warning(this, tr("提示"), "SercertKey:"+sercertKey+"  " +"AccessKey:"+accessKey);
    Qiniu qiniu(sercertKey.toStdString(),accessKey.toStdString());
+   qiniu.uploadFile();
 }
