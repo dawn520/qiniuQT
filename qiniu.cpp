@@ -30,9 +30,9 @@ void Qiniu::uploadFile(){
 //    mac.secretKey = sercertKey.data();
     mac.accessKey = "0W_4wL_5ldYISAnty8M39hFQ1f7iN-F7vU1Vqpvo";
     mac.secretKey = "n3MtMSgmSucSfygNEx3CHuP_6AUUPXzUK64dlKiU";
-    char *bucket = "test";
-    char *key = "1541515304366.jpg";
-    char *localFile = "/Users/xixi/Desktop/1541515304366_.pic_hd.jpg";
+    const char *bucket = "test";
+    const char *key = "1541515304366.jpg";
+    const char *localFile = "/Users/xixi/Desktop/1541515304366_.pic_hd.jpg";
     Qiniu_Io_PutRet putRet;
     Qiniu_Client client;
     Qiniu_RS_PutPolicy putPolicy;

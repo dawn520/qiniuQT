@@ -22,8 +22,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-INCLUDEPATH += $$PWD/lib
-
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
@@ -40,16 +38,49 @@ FORMS += \
 RESOURCES += \
     images.qrc
 
-
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/lib/qiniu/lib/release/ -lqiniu
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/lib/qiniu/lib/debug/ -lqiniu
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/lib/qiniu/lib/ -lqiniu
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/lib/qiniu/lib/ -lqiniu
 else:unix: LIBS += -L$$PWD/lib/qiniu/lib/ -lqiniu
 
 INCLUDEPATH += $$PWD/lib/qiniu/include
 DEPENDPATH += $$PWD/lib/qiniu/include
 
-win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$PWD/lib/qiniu/lib/release/libqiniu.a
-else:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/lib/qiniu/lib/debug/libqiniu.a
-else:win32:!win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$PWD/lib/qiniu/lib/release/qiniu.lib
-else:win32:!win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/lib/qiniu/lib/debug/qiniu.lib
-else:unix: PRE_TARGETDEPS += $$PWD/lib/qiniu/lib/libqiniu.a
+#win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$PWD/lib/qiniu/lib/libqiniu.a
+#else:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/lib/qiniu/lib/libqiniu.a
+#else:win32:!win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$PWD/lib/qiniu/lib/qiniu.lib
+#else:win32:!win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/lib/qiniu/lib/qiniu.lib
+#else:unix: PRE_TARGETDEPS += $$PWD/lib/qiniu/lib/libqiniu.a
+
+#win32: LIBS += -L$$PWD/../qiniuQT/lib/qiniu/lib/ -lqiniu
+
+#INCLUDEPATH += $$PWD/../qiniuQT/lib/qiniu/include
+#DEPENDPATH += $$PWD/../qiniuQT/lib/qiniu/include
+
+#win32:!win32-g++: PRE_TARGETDEPS += $$PWD/../qiniuQT/lib/qiniu/lib/qiniu.lib
+#else:win32-g++: PRE_TARGETDEPS += $$PWD/../qiniuQT/lib/qiniu/lib/libqiniu.a
+
+win32-g++{
+    message("config win32-g++");
+}
+else:win32{
+ message("config win32");
+}
+else:unix{
+ message("config unix");
+}
+
+#unix|win32: LIBS += -L$$PWD/../qiniuQT/lib/qiniu/lib/ -lqiniu
+
+#INCLUDEPATH += $$PWD/../qiniuQT/lib/qiniu/include
+#DEPENDPATH += $$PWD/../qiniuQT/lib/qiniu/include
+
+#win32:!win32-g++: PRE_TARGETDEPS += $$PWD/../qiniuQT/lib/qiniu/lib/qiniu.lib
+#else:unix|win32-g++: PRE_TARGETDEPS += $$PWD/../qiniuQT/lib/qiniu/lib/libqiniu.a
+
+#win32: LIBS += -L$$PWD/lib/qiniu/lib/ -lqiniu
+
+#INCLUDEPATH += $$PWD/lib/qiniu/include
+#DEPENDPATH += $$PWD/lib/qiniu/include
+
+#win32:!win32-g++: PRE_TARGETDEPS += $$PWD/lib/qiniu/lib/qiniu.lib
+#else:win32-g++: PRE_TARGETDEPS += $$PWD/lib/qiniu/lib/libqiniu.a
