@@ -3,3 +3,4 @@ GeneratedFiles
 release
 debug
 Win32
+.gitignore
