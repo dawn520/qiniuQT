@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QFileInfoList>
 #include <QMainWindow>
 
 namespace Ui {
@@ -17,6 +18,7 @@ public:
 
     void openFile();
     void showMessage();
+    QFileInfoList GetFileList(QString path);
 private:
     Ui::MainWindow *ui;
 };

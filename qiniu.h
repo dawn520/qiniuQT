@@ -13,7 +13,7 @@ public:
     std::string token;
     Qiniu(std::string sercertKeyIn, std::string AccessKeyIn);
 
-    void uploadFile();
+    void uploadFile(std::string bucketName,std::string keyName, std::string fileName);
 	void getBucketsList();
 	void getFilesList();
     void debug(Qiniu_Client *client, Qiniu_Error err);

@@ -33,10 +33,53 @@ void MainWindow::openFile()
 }
 
 void MainWindow::showMessage(){
-   QString sercertKey = ui->SercertKeyEdit->text();
-   QString accessKey = ui->AccessKeyEdit->text();
+    QString sercertKey = ui->SercertKeyEdit->text();
+    QString accessKey = ui->AccessKeyEdit->text();
+    QString bucket = ui->BucketEdit->text();
+    QString path = ui->DirEdit->text();
+    Qiniu qiniu(sercertKey.toStdString(),accessKey.toStdString());
 
-   QMessageBox::warning(this, tr("提示"), "SercertKey:"+sercertKey+"  " +"AccessKey:"+accessKey);
-   Qiniu qiniu(sercertKey.toStdString(),accessKey.toStdString());
-   qiniu.uploadFile();
+    QFileInfoList files = GetFileList(path);
+    for (int i = 0; i<files.size(); i++)
+    {
+        QString remoteName;
+        QString localName;
+        QFileInfo fileInfo = files.at(i);
+        if(fileInfo.path() == path){
+            remoteName = "";
+        }else{
+            remoteName = fileInfo.path().remove(0,path.size()+1);
+            remoteName = remoteName.append("/").append(fileInfo.fileName());
+        }
+        localName = fileInfo.path().append("/").append(fileInfo.fileName());
+        std::cout << qPrintable(QString("%1\n").arg(remoteName));
+        std::cout << qPrintable(QString("%1\n").arg(localName));
+        std::cout << std::endl;
+
+        qiniu.uploadFile(bucket.toStdString(),remoteName.toStdString(),localName.toStdString());
+
+        //        std::cout << qPrintable(QString("%1 %2 %3").arg(fileInfo.size(), 10)
+        //                                .arg(fileInfo.fileName()).arg(fileInfo.path()));
+
+    }
+
+
+    QMessageBox::warning(this, tr("提示"), "SercertKey:"+sercertKey+"  " +"AccessKey:"+accessKey);
+
+}
+
+QFileInfoList MainWindow::GetFileList(QString path)
+{
+    QDir dir(path);
+    QFileInfoList file_list = dir.entryInfoList(QDir::Files | QDir::Hidden | QDir::NoSymLinks);
+    QFileInfoList folder_list = dir.entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot);
+
+    for(int i = 0; i != folder_list.size(); i++)
+    {
+        QString name = folder_list.at(i).absoluteFilePath();
+        QFileInfoList child_file_list = GetFileList(name);
+        file_list.append(child_file_list);
+    }
+
+    return file_list;
 }

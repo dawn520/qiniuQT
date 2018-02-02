@@ -24,16 +24,14 @@ Qiniu::Qiniu(std::string sercertKeyIn, std::string AccessKeyIn)
 	//    Qiniu_Servend_Cleanup();                       /* 全局清理函数，只需要在进程退出时调用一次 */
 }
 
-void Qiniu::uploadFile() {
-	Qiniu_Global_Init(-1);
+void Qiniu::uploadFile(std::string bucketName,std::string keyName, std::string fileName ) {
+    Qiniu_Global_Init(-1);
 	Qiniu_Mac mac;
-	//    mac.accessKey = accessKey.data();
-	//    mac.secretKey = sercertKey.data();
-	mac.accessKey = "0W_4wL_5ldYISAnty8M39hFQ1f7iN-F7vU1Vqpvo";
-	mac.secretKey = "n3MtMSgmSucSfygNEx3CHuP_6AUUPXzUK64dlKiU";
-	const char *bucket = "test";
-	const char *key = "vmware-2.log";
-	const char *localFile = "\\xnj\\vmware-2.log";
+    mac.accessKey = accessKey.data();
+    mac.secretKey = sercertKey.data();
+    const char *bucket = bucketName.data();
+    const char *key = keyName.data();
+    const char *localFile = fileName.data();
 	printf("\npath:%s\n", localFile);
 	Qiniu_Io_PutRet putRet;
 	Qiniu_Client client;
@@ -146,67 +144,67 @@ void Qiniu::uploadFile() {
 //    } while (nextMarker && nextMarker != '\0');
 //}
 
-void Qiniu::getFilesList() {
-	Qiniu_Global_Init(-1);
+//void Qiniu::getFilesList() {
+//    Qiniu_Global_Init(-1);
 
-	Qiniu_RSF_ListRet listRet;
-	Qiniu_Client client;
+//    Qiniu_RSF_ListRet listRet;
+//    Qiniu_Client client;
 
-	const char *accessKey = getenv("QINIU_ACCESS_KEY");
-	const char *secretKey = getenv("QINIU_SECRET_KEY");
-	const char *bucket = getenv("QINIU_TEST_BUCKET");
-	const char *prefix = "";
-	const char *delimiter = "/";
-	const char *marker = "";
-	int limit = 100;
-	int i;
+//    const char *accessKey = getenv("QINIU_ACCESS_KEY");
+//    const char *secretKey = getenv("QINIU_SECRET_KEY");
+//    const char *bucket = getenv("QINIU_TEST_BUCKET");
+//    const char *prefix = "";
+//    const char *delimiter = "/";
+//    const char *marker = "";
+//    int limit = 100;
+//    int i;
 
-	Qiniu_Mac mac;
-	mac.accessKey = accessKey;
-	mac.secretKey = secretKey;
+//    Qiniu_Mac mac;
+//    mac.accessKey = accessKey;
+//    mac.secretKey = secretKey;
 
-	char **commonPrefixes = NULL;
-	Qiniu_RSF_ListItem *items = NULL;
+//    char **commonPrefixes = NULL;
+//    Qiniu_RSF_ListItem *items = NULL;
 
-	//init
-	Qiniu_Client_InitMacAuth(&client, 1024, &mac);
-	Qiniu_Error error = Qiniu_RSF_ListFiles(&client, &listRet, bucket, prefix, delimiter, marker, limit);
-	if (error.code != 200) {
-		printf("list files of bucket %s error.\n", bucket);
-		debug(&client, error);
-	}
-	else {
-		/*200, 正确返回了, 你可以通过listRet变量查询文件列表信息*/
-		printf("list files of bucket %s success.\n\n", bucket);
-		//marker
-		printf("next marker: %s\n", listRet.marker);
+//    //init
+//    Qiniu_Client_InitMacAuth(&client, 1024, &mac);
+//    Qiniu_Error error = Qiniu_RSF_ListFiles(&client, &listRet, bucket, prefix, delimiter, marker, limit);
+//    if (error.code != 200) {
+//        printf("list files of bucket %s error.\n", bucket);
+//        debug(&client, error);
+//    }
+//    else {
+//        /*200, 正确返回了, 你可以通过listRet变量查询文件列表信息*/
+//        printf("list files of bucket %s success.\n\n", bucket);
+//        //marker
+//        printf("next marker: %s\n", listRet.marker);
 
-		//common prefixes
-		commonPrefixes = listRet.commonPrefixes;
-		for (i = 0; i < listRet.commonPrefixesCount; i++) {
-			printf("commonPrefix: %s\n", *commonPrefixes);
-			++commonPrefixes;
-		}
+//        //common prefixes
+//        commonPrefixes = listRet.commonPrefixes;
+//        for (i = 0; i < listRet.commonPrefixesCount; i++) {
+//            printf("commonPrefix: %s\n", *commonPrefixes);
+//            ++commonPrefixes;
+//        }
 
-		//items
-		items = listRet.items;
-		for (i = 0; i < listRet.itemsCount; i++) {
-			Qiniu_RSF_ListItem item = listRet.items[i];
-			printf("key: %s, hash: %s, fsize: %lld, mime: %s, putTime: %lld, endUser: %s, type: %lld\n",
-				item.key, item.hash, item.fsize, item.mimeType, item.putTime, item.endUser, item.type);
-		}
+//        //items
+//        items = listRet.items;
+//        for (i = 0; i < listRet.itemsCount; i++) {
+//            Qiniu_RSF_ListItem item = listRet.items[i];
+//            printf("key: %s, hash: %s, fsize: %lld, mime: %s, putTime: %lld, endUser: %s, type: %lld\n",
+//                item.key, item.hash, item.fsize, item.mimeType, item.putTime, item.endUser, item.type);
+//        }
 
-		//free
-		if (listRet.commonPrefixes != NULL) {
-			Qiniu_Free(listRet.commonPrefixes);
-		}
-		if (listRet.items != NULL) {
-			Qiniu_Free(listRet.items);
-		}
-	}
+//        //free
+//        if (listRet.commonPrefixes != NULL) {
+//            Qiniu_Free(listRet.commonPrefixes);
+//        }
+//        if (listRet.items != NULL) {
+//            Qiniu_Free(listRet.items);
+//        }
+//    }
 
-	Qiniu_Client_Cleanup(&client);
-}
+//    Qiniu_Client_Cleanup(&client);
+//}
 
 void Qiniu::debug(Qiniu_Client* client, Qiniu_Error err)
 {
