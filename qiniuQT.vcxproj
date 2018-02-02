@@ -98,7 +98,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>.;.\lib\qiniu\include;$(QTDIR)\include;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtCore;.\debug;\include;$(QTDIR)\mkspecs\win32-msvc;.\GeneratedFiles;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\project\qt\qiniuQT\lib\qiniu\bin;.;.\lib\qiniu\include;$(QTDIR)\include;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtCore;.\debug;\include;$(QTDIR)\mkspecs\win32-msvc;.\GeneratedFiles;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>debug\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
@@ -117,7 +117,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>$(QTDIR)\lib\qtmaind.lib;shell32.lib;E:\project\qt\qiniuQT\lib\qiniu\lib\qiniu.lib;$(QTDIR)\lib\Qt5Widgetsd.lib;$(QTDIR)\lib\Qt5Guid.lib;$(QTDIR)\lib\Qt5Cored.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(QTDIR)\lib;C:\Utils\my_sql\my_sqlx86\lib;C:\Utils\postgresqlx86\pgsql\lib;$(QTDIR)\lib;E:\project\qt\qiniuQT\lib\qiniu\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>E:\project\qt\qiniuQT\lib\qiniu\bin;$(QTDIR)\lib;C:\Utils\my_sql\my_sqlx86\lib;C:\Utils\postgresqlx86\pgsql\lib;E:\project\qt\qiniuQT\lib\qiniu\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -154,7 +154,7 @@
 "$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -D_UNICODE -DWIN32 -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DNDEBUG "-I." "-I.\lib\qiniu\include" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtCore" "-I.\release" "-I\include" "-I$(QTDIR)\mkspecs\win32-msvc" "-I.\GeneratedFiles"</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing mainwindow.h...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">if errorlevel 1 goto VCEnd
-"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -D_UNICODE -DWIN32 -DQT_DEPRECATED_WARNINGS -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB "-I." "-I.\lib\qiniu\include" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtCore" "-I.\debug" "-I\include" "-I$(QTDIR)\mkspecs\win32-msvc" "-I.\GeneratedFiles"</Command>
+"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -D_UNICODE -DWIN32 -DQT_DEPRECATED_WARNINGS -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB  "-IE:\project\qt\qiniuQT\lib\qiniu\bin" "-I." "-I.\lib\qiniu\include" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtCore" "-I.\debug" "-I\include" "-I$(QTDIR)\mkspecs\win32-msvc" "-I.\GeneratedFiles"</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing mainwindow.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\moc_%(Filename).cpp</Outputs>
@@ -196,6 +196,7 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <None Include=".gitignore" />
     <None Include="resource\images\files_open.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>

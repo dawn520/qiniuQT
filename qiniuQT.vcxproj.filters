@@ -94,6 +94,7 @@
     <CustomBuild Include="images.qrc">
       <Filter>Resource Files</Filter>
     </CustomBuild>
+    <None Include=".gitignore" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_mainwindow.h">
