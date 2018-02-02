@@ -56,7 +56,9 @@ void MainWindow::showMessage(){
         std::cout << qPrintable(QString("%1\n").arg(localName));
         std::cout << std::endl;
 
+
         qiniu.uploadFile(bucket.toStdString(),remoteName.toStdString(),localName.toStdString());
+
 
         //        std::cout << qPrintable(QString("%1 %2 %3").arg(fileInfo.size(), 10)
         //                                .arg(fileInfo.fileName()).arg(fileInfo.path()));
