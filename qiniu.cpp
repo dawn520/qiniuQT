@@ -24,7 +24,7 @@ Qiniu::Qiniu(std::string sercertKeyIn, std::string AccessKeyIn)
 	//    Qiniu_Servend_Cleanup();                       /* 全局清理函数，只需要在进程退出时调用一次 */
 }
 
-void Qiniu::uploadFile(std::string bucketName,std::string keyName, std::string fileName ) {
+bool Qiniu::uploadFile(std::string bucketName,std::string keyName, std::string fileName ) {
     Qiniu_Global_Init(-1);
 	Qiniu_Mac mac;
     mac.accessKey = accessKey.data();
@@ -48,9 +48,11 @@ void Qiniu::uploadFile(std::string bucketName,std::string keyName, std::string f
 	Qiniu_Use_Zone_Huanan(Qiniu_True);
 	Qiniu_Client_InitMacAuth(&client, 1024, &mac);
 	Qiniu_Error error = Qiniu_Io_PutFile(&client, &putRet, uptoken, key, localFile, &putExtra);
+    int flag = 1;
 	if (error.code != 200) {
 		printf("upload file %s:%s error.\n", bucket, key);
 		debug(&client, error);
+        flag = 0;
 	}
 	else {
 		/*200, 正确返回了, 你可以通过statRet变量查询一些关于这个文件的信息*/
@@ -60,6 +62,11 @@ void Qiniu::uploadFile(std::string bucketName,std::string keyName, std::string f
 	}
 	Qiniu_Free(uptoken);
 	Qiniu_Client_Cleanup(&client);
+    if(flag == 1){
+        return true;
+    }else{
+        return false;
+    }
 }
 
 //void Qiniu::getBucketsList() {

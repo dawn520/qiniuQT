@@ -62,6 +62,12 @@
     <ClCompile Include="GeneratedFiles\moc_mainwindow.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="uploadworker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\moc_uploadworker.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="mainwindow.h">
@@ -70,6 +76,9 @@
     <ClInclude Include="qiniu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <CustomBuild Include="uploadworker.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="debug\moc_predefs.h.cbt">
@@ -94,7 +103,6 @@
     <CustomBuild Include="images.qrc">
       <Filter>Resource Files</Filter>
     </CustomBuild>
-    <None Include=".gitignore" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_mainwindow.h">
