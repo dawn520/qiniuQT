@@ -2,5 +2,7 @@
     <qresource prefix="/">
         <file>resource/images/files_open.png</file>
         <file>resource/images/files_save.png</file>
+        <file>resource/images/qiniu.ico</file>
+        <file>resource/images/qiniu.png</file>
     </qresource>
 </RCC>

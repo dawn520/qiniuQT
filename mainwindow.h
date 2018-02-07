@@ -31,6 +31,8 @@ public:
         emit operate(files,path, sercertKey,accessKey, bucket);
     }
 
+    void quitThread();
+    void openUrl();
 private slots:
     void handleResults(int value);
 signals:

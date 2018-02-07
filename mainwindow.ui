@@ -218,6 +218,35 @@
      <string>开始上传</string>
     </property>
    </widget>
+   <widget class="QWidget" name="horizontalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>353</x>
+      <y>412</y>
+      <width>283</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <item>
+      <widget class="QLabel" name="copyright">
+       <property name="text">
+        <string>非七牛官方出品，dawn520版权所有·2018</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="site">
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/dawn520/qiniuQT&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;官网&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="openExternalLinks">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -225,7 +254,7 @@
      <x>0</x>
      <y>0</y>
      <width>640</width>
-     <height>18</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
@@ -234,4 +263,7 @@
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
  <connections/>
+ <slots>
+  <slot>openUrl()</slot>
+ </slots>
 </ui>

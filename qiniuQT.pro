@@ -47,19 +47,6 @@ else:unix: LIBS += -L$$PWD/lib/qiniu/lib/ -lqiniu
 INCLUDEPATH += $$PWD/lib/qiniu/include
 DEPENDPATH += $$PWD/lib/qiniu/include
 
-#win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$PWD/lib/qiniu/lib/libqiniu.a
-#else:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/lib/qiniu/lib/libqiniu.a
-#else:win32:!win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$PWD/lib/qiniu/lib/qiniu.lib
-#else:win32:!win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/lib/qiniu/lib/qiniu.lib
-#else:unix: PRE_TARGETDEPS += $$PWD/lib/qiniu/lib/libqiniu.a
-
-#win32: LIBS += -L$$PWD/../qiniuQT/lib/qiniu/lib/ -lqiniu
-
-#INCLUDEPATH += $$PWD/../qiniuQT/lib/qiniu/include
-#DEPENDPATH += $$PWD/../qiniuQT/lib/qiniu/include
-
-#win32:!win32-g++: PRE_TARGETDEPS += $$PWD/../qiniuQT/lib/qiniu/lib/qiniu.lib
-#else:win32-g++: PRE_TARGETDEPS += $$PWD/../qiniuQT/lib/qiniu/lib/libqiniu.a
 
 win32-g++{
     message("config win32-g++");
@@ -71,18 +58,6 @@ else:unix{
  message("config unix");
 }
 
-#unix|win32: LIBS += -L$$PWD/../qiniuQT/lib/qiniu/lib/ -lqiniu
 
-#INCLUDEPATH += $$PWD/../qiniuQT/lib/qiniu/include
-#DEPENDPATH += $$PWD/../qiniuQT/lib/qiniu/include
 
-#win32:!win32-g++: PRE_TARGETDEPS += $$PWD/../qiniuQT/lib/qiniu/lib/qiniu.lib
-#else:unix|win32-g++: PRE_TARGETDEPS += $$PWD/../qiniuQT/lib/qiniu/lib/libqiniu.a
-
-#win32: LIBS += -L$$PWD/lib/qiniu/lib/ -lqiniu
-
-#INCLUDEPATH += $$PWD/lib/qiniu/include
-#DEPENDPATH += $$PWD/lib/qiniu/include
-
-#win32:!win32-g++: PRE_TARGETDEPS += $$PWD/lib/qiniu/lib/qiniu.lib
-#else:win32-g++: PRE_TARGETDEPS += $$PWD/lib/qiniu/lib/libqiniu.a
+ICON = qiniu.icns

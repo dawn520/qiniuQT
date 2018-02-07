@@ -6,6 +6,7 @@
 #include "qiniu.h"
 #include "ui_mainwindow.h"
 #include <QComboBox>
+#include <QDesktopServices>
 #include <QFileDialog>
 #include <QFuture>
 #include <QMessageBox>
@@ -24,15 +25,15 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     qRegisterMetaType<QFileInfoList>("QFileInfoList");
-    MainWindow::setFixedSize(this->width(), this->height());  //这种最好。
-    ui->setupUi(this);
+    MainWindow::setFixedSize(this->width(), this->height());
 
-    QProgressBar *progressBar;
-    progressBar = new QProgressBar;
-    progressBar->setFormat("%p%");    //按完成的百分比显示
+    MainWindow::setWindowIcon(QIcon(":/resource/images/qiniu.png"));
+    ui->setupUi(this);
 
     connect(ui->DirButton, &QPushButton::clicked, this, &MainWindow::openFile);
     connect(ui->UploadButton, &QPushButton::clicked, this, &MainWindow::startUpload);
+//    connect(ui->site, &QLabel::linkActivated, this, &MainWindow::openUrl);
+//    openUrl();
 }
 
 MainWindow::~MainWindow()
@@ -53,13 +54,13 @@ void MainWindow::openFile()
 
 void MainWindow::startUpload(){
 
-    //    QString sercertKey = ui->SercertKeyEdit->text();
-    //    QString accessKey = ui->AccessKeyEdit->text();
-    //    QString bucket = ui->BucketEdit->text();
+    QString sercertKey = ui->SercertKeyEdit->text();
+    QString accessKey = ui->AccessKeyEdit->text();
+    QString bucket = ui->BucketEdit->text();
     QString path = ui->DirEdit->text();
-    QString sercertKey = "n3MtMSgmSucSfygNEx3CHuP_6AUUPXzUK64dlKiU";
-    QString accessKey = "0W_4wL_5ldYISAnty8M39hFQ1f7iN-F7vU1Vqpvo";
-    QString bucket = "test";
+    //    QString sercertKey = "n3MtMSgmSucSfygNEx3CHuP_6AUUPXzUK64dlKiU";
+    //    QString accessKey = "0W_4wL_5ldYISAnty8M39hFQ1f7iN-F7vU1Vqpvo";
+    //    QString bucket = "test";
     //    QString path = "C:/Users/admin/Desktop/hhh";
 
     if(sercertKey.length()==0){
@@ -88,19 +89,6 @@ void MainWindow::startUpload(){
 
     std::cout << "start....\n";
 
-
-
-    //    for(int i =  1; i <= num; ++i)
-    //    {
-    //        progressDialog->setValue(i);   //设置当前的值
-    //        Sleep(1000);
-    //        //             cout<<i<<endl;
-    //        //如果检测到按钮取消被激活，就跳出去
-    //        if(progressDialog->wasCanceled())
-    //            return;
-
-    //    }
-
     QFileInfoList files = GetFileList(path);
 
 
@@ -113,9 +101,10 @@ void MainWindow::startUpload(){
     progressDialog->setWindowTitle(tr("请稍候"));   //设置标题的显示时间
     progressDialog->setLabelText(tr("正在上传中"));
     progressDialog->setCancelButtonText(tr("取消"));     //退出按钮名字
-
     progressDialog->setRange(0, files.size());    //设置显示的范围
     progressDialog->setValue(1);
+
+    connect(progressDialog, &QProgressDialog::canceled, &workerThread, &QThread::terminate);
 
     UploadWorker *uploadWorker = new UploadWorker;
 
@@ -126,21 +115,8 @@ void MainWindow::startUpload(){
     workerThread.start();
 
     send(files,path, sercertKey,accessKey, bucket);
+
     std::cout << "hhhhhh\n";
-    //    while(1){
-    //        std::cout << future.progressValue();
-    //    }
-
-    //        printf(future.result());
-
-    //            if($re)
-    //                return;
-
-
-    //        std::cout << qPrintable(QString("%1 %2 %3").arg(fileInfo.size(), 10)
-    //                                .arg(fileInfo.fileName()).arg(fileInfo.path()));
-
-
 }
 
 QFileInfoList MainWindow::GetFileList(QString path)
@@ -164,8 +140,13 @@ void MainWindow::handleResults(int value)
 {
     qDebug() << "Handle Thread : " << QThread::currentThreadId();
     progressDialog->setValue(value+1);
-    //    if(progressDialog->wasCanceled())
-    //        return;
+}
+void MainWindow::quitThread(){
+    workerThread.exit(0);
+}
+void MainWindow::openUrl(){
+    const QUrl regUrl(QLatin1String("http://www.baidu.com"));
+    QDesktopServices::openUrl(regUrl);
 }
 
 void MainWindow::showMessages()
