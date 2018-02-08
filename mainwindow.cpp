@@ -25,6 +25,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     qRegisterMetaType<QFileInfoList>("QFileInfoList");
+    qRegisterMetaType<qiniuReturn>("qiniuReturn");
+
     MainWindow::setFixedSize(this->width(), this->height());
 
     MainWindow::setWindowIcon(QIcon(":/resource/images/qiniu.png"));
@@ -32,8 +34,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->DirButton, &QPushButton::clicked, this, &MainWindow::openFile);
     connect(ui->UploadButton, &QPushButton::clicked, this, &MainWindow::startUpload);
-//    connect(ui->site, &QLabel::linkActivated, this, &MainWindow::openUrl);
-//    openUrl();
+    //    connect(ui->site, &QLabel::linkActivated, this, &MainWindow::openUrl);
+    //    openUrl();
 }
 
 MainWindow::~MainWindow()
@@ -58,9 +60,10 @@ void MainWindow::startUpload(){
     QString accessKey = ui->AccessKeyEdit->text();
     QString bucket = ui->BucketEdit->text();
     QString path = ui->DirEdit->text();
-    //    QString sercertKey = "n3MtMSgmSucSfygNEx3CHuP_6AUUPXzUK64dlKiU";
-    //    QString accessKey = "0W_4wL_5ldYISAnty8M39hFQ1f7iN-F7vU1Vqpvo";
-    //    QString bucket = "test";
+    int location = ui->location->currentIndex();
+//        QString sercertKey = "n3MtMSgmSucSfygNEx3CHuP_6AUUPXzUK64dlKiU";
+//        QString accessKey = "0W_4wL_5ldYISAnty8M39hFQ1f7iN-F7vU1Vqpvo";
+//        QString bucket = "test";
     //    QString path = "C:/Users/admin/Desktop/hhh";
 
     if(sercertKey.length()==0){
@@ -87,10 +90,7 @@ void MainWindow::startUpload(){
         return;
     }
 
-    std::cout << "start....\n";
-
-    QFileInfoList files = GetFileList(path);
-
+    files = GetFileList(path);
 
     progressDialog = new QProgressDialog(this);
     QFont font("宋体", 12);
@@ -114,9 +114,8 @@ void MainWindow::startUpload(){
     connect(uploadWorker, &UploadWorker::resultReady, this, &MainWindow::handleResults);
     workerThread.start();
 
-    send(files,path, sercertKey,accessKey, bucket);
+    send(files,path, sercertKey,accessKey, bucket,location);
 
-    std::cout << "hhhhhh\n";
 }
 
 QFileInfoList MainWindow::GetFileList(QString path)
@@ -136,16 +135,43 @@ QFileInfoList MainWindow::GetFileList(QString path)
 }
 
 // 更新进度
-void MainWindow::handleResults(int value)
+void MainWindow::handleResults(int value,qiniuReturn qReturn)
 {
     qDebug() << "Handle Thread : " << QThread::currentThreadId();
-    progressDialog->setValue(value+1);
+    if(qReturn.code != 200 && qReturn.code != 614){
+        int code = qReturn.code;
+        std::string message = qReturn.message;
+        quitThread();
+        progressDialog->cancel();
+        switch (code) {
+        case 400:
+            message = "存储区域选择不正确！请重新选择";
+            break;
+        case 401:
+            message = "accessKey或sercertKey有误！";
+            break;
+        case 631:
+            message = "目标bucket不存在！";
+            break;
+        default:
+            break;
+        }
+        QMessageBox::warning(this, tr("上传失败"),  message.data());
+    }else{
+        progressDialog->setValue(value+1);
+        if(value+1 == files.size()){
+            quitThread();
+            QMessageBox::information(this, tr("提示"),  "上传成功!");
+        }
+    }
 }
 void MainWindow::quitThread(){
-    workerThread.exit(0);
+    workerThread.requestInterruption();
+    workerThread.quit();
+    workerThread.wait();
 }
 void MainWindow::openUrl(){
-    const QUrl regUrl(QLatin1String("http://www.baidu.com"));
+    const QUrl regUrl(QLatin1String("http://github.com/dawn520/qiniuQT"));
     QDesktopServices::openUrl(regUrl);
 }
 

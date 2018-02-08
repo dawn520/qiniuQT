@@ -109,4 +109,14 @@
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="qiniu.rc">
+      <Filter>Generated Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resource\images\qiniu.ico">
+      <Filter>Generated Files</Filter>
+    </Image>
+  </ItemGroup>
 </Project>

@@ -61,3 +61,6 @@ else:unix{
 
 
 ICON = qiniu.icns
+
+DISTFILES += \
+    qiniu.rc

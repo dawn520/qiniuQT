@@ -1,6 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "qiniu.h"
+
 #include <QFileInfoList>
 #include <QMainWindow>
 #include <QProgressDialog>
@@ -24,21 +26,23 @@ public:
     void openFile();
     void startUpload();
     QFileInfoList GetFileList(QString path);
+    QFileInfoList files;
     void showMessages();
     void send(QFileInfoList files,
               QString path,QString sercertKey,
-              QString accessKey,QString bucket){
-        emit operate(files,path, sercertKey,accessKey, bucket);
+              QString accessKey,QString bucket, int location){
+        emit operate(files,path, sercertKey,accessKey, bucket, location);
     }
 
     void quitThread();
     void openUrl();
+
 private slots:
-    void handleResults(int value);
+    void handleResults(int value,qiniuReturn qReturn);
 signals:
     void operate(QFileInfoList files,
                  QString path,QString sercertKey,
-                 QString accessKey,QString bucket);
+                 QString accessKey,QString bucket, int location);
 private:
     Ui::MainWindow *ui;
     QProgressDialog *progressDialog;
