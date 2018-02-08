@@ -23,8 +23,6 @@ public:
     void getBucketsList();
     void getFilesList();
     void debug(Qiniu_Client *client, Qiniu_Error err);
-    wchar_t CN2Unicode(char *input);
-    char *WcharToChar(const wchar_t *wp);
 };
 
 #endif // QINIU_H

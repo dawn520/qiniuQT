@@ -229,21 +229,4 @@ void Qiniu::debug(Qiniu_Client* client, Qiniu_Error err)
     printf("respose body:\n%s", Qiniu_Buffer_CStr(&client->b));
 }
 
-void Qiniu::U8ToUnicode()
-{
-    //UTF8 to Unicode
-    //由于中文直接复制过来会成乱码，编译器有时会报错，故采用16进制形式
-    char* szU8 = "abcd1234\xe4\xbd\xa0\xe6\x88\x91\xe4\xbb\x96\x00";
-    //预转换，得到所需空间的大小
-    int wcsLen = ::MultiByteToWideChar(CP_UTF8, NULL, szU8, strlen(szU8), NULL, 0);
-    //分配空间要给'\0'留个空间，MultiByteToWideChar不会给'\0'空间
-    wchar_t* wszString = new wchar_t[wcsLen + 1];
-    //转换
-    ::MultiByteToWideChar(CP_UTF8, NULL, szU8, strlen(szU8), wszString, wcsLen);
-    //最后加上'\0'
-    wszString[wcsLen] = '\0';
-    //unicode版的MessageBox API
-    ::MessageBoxW(GetSafeHwnd(), wszString, wszString, MB_OK);
 
-    //写文本同ansi to unicode
-}
