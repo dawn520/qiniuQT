@@ -17,4 +17,4 @@
 ![image](https://raw.githubusercontent.com/dawn520/qiniuQT/master/screenshots/31d9d4c8b9a778ac919ea5f45e94be6.png)
 
 ### MacOS
-![image](https://raw.githubusercontent.com/dawn520/qiniuQT/master/screenshots/398550042441626945.jpg)
+![image](https://raw.githubusercontent.com/dawn520/qiniuQT/master/screenshots/398550042441626945.png)
