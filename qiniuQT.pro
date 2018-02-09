@@ -26,13 +26,15 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
         qiniu.cpp \
-    uploadworker.cpp
+    uploadworker.cpp \
+    c_chinese_code.cpp
 
 HEADERS += \
         mainwindow.h \
         mainwindow.h \
         qiniu.h \
-    uploadworker.h
+    uploadworker.h \
+    c_chinese_code.h
 
 FORMS += \
         mainwindow.ui

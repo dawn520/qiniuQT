@@ -13,6 +13,7 @@ class UploadWorker: public QObject
 
 public:
     explicit UploadWorker(){}
+    std::string UTF8_To_string(const std::string &str);
 public slots:
     void doWork(QFileInfoList files,
                 QString path,QString sercertKey,
