@@ -1,6 +1,6 @@
 # qiniuQT
 ## Download
-- [Windows10](https://github.com/dawn520/qiniuQT/releases/download/v1.0.0-beta.1/qiniuQT-v1.0.0-beta.1-mac.zip)
+- [Windows10](https://github.com/dawn520/qiniuQT/releases/download/v1.0.0-beta.1/qiniuQT-v1.0.0-beta.1-windows.zip)
 - [MacOS](https://github.com/dawn520/qiniuQT/releases/download/v1.0.0-beta.1/qiniuQT-v1.0.0-beta.1-mac.zip)
 ## Features
 - base on QT5 and cross platform
