@@ -21,4 +21,4 @@
 ![image](https://raw.githubusercontent.com/dawn520/qiniuQT/master/screenshots/398550042441626945.png)
 
 ### Ubuntu Desktop
-![image](https://raw.githubusercontent.com/dawn520/qiniuQT/master/screenshots/398550042441626945.png)
+![image](https://raw.githubusercontent.com/dawn520/qiniuQT/master/screenshots/ubuntu.png)
