@@ -36,13 +36,13 @@ qiniuReturn Qiniu::uploadFile(std::string bucketName,std::string keyName, std::s
     Qiniu_Client client;
     Qiniu_RS_PutPolicy putPolicy;
     Qiniu_Io_PutExtra putExtra;
-     Qiniu_Io_PutRet putRet;
-//    Qiniu_Rio_PutExtra putExtra;
-//    Qiniu_Rio_PutRet putRet;
+    Qiniu_Io_PutRet putRet;
+    //    Qiniu_Rio_PutExtra putExtra;
+    //    Qiniu_Rio_PutRet putRet;
 
     Qiniu_Zero(putPolicy);
     Qiniu_Zero(putExtra);
-//    putPolicy.scope = bucket;
+    //    putPolicy.scope = bucket;
 
     putPolicy.scope = Qiniu_String_Concat3(bucket, ":",key);
     char *uptoken = Qiniu_RS_PutPolicy_Token(&putPolicy, &mac);
@@ -65,9 +65,9 @@ qiniuReturn Qiniu::uploadFile(std::string bucketName,std::string keyName, std::s
     Qiniu_Client_InitMacAuth(&client, 1024, &mac);
 
     Qiniu_Error error = Qiniu_Io_PutFile(&client, &putRet, uptoken, key, localFile, &putExtra);
-//    Qiniu_Error error = Qiniu_Rio_PutFile(&client, &putRet, uptoken, key, localFile, &putExtra);
-//    Qiniu_Rio_FnNotify notify = putExtra.notify;
-//    printf("upload file %s:%s error.\n",notify.a, key);
+    //    Qiniu_Error error = Qiniu_Rio_PutFile(&client, &putRet, uptoken, key, localFile, &putExtra);
+    //    Qiniu_Rio_FnNotify notify = putExtra.notify;
+    //    printf("upload file %s:%s error.\n",notify.a, key);
 
     qiniuReturn qReturn;
     if (error.code != 200) {
