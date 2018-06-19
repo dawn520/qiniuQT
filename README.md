@@ -6,7 +6,7 @@
 
 ## Features
 - base on QT5 and cross platform
-- support Windows 10/MacOS/Ubuntu Desktop
+- support Windows 7+/MacOS 10.11+/Ubuntu Desktop 14.01+
 - upload files by local directory structure
 ### future
 - resume from break point
