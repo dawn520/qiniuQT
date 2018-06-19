@@ -44,7 +44,7 @@ RESOURCES += \
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/lib/qiniu/lib/ -lqiniu
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/lib/qiniu/lib/ -lqiniu
-else:unix: LIBS += -L$$PWD/lib/qiniu/lib/ -lqiniu
+else:unix: LIBS += -L$$PWD/lib/qiniu/lib/linux -lqiniu
 
 INCLUDEPATH += $$PWD/lib/qiniu/include
 DEPENDPATH += $$PWD/lib/qiniu/include
@@ -59,7 +59,6 @@ else:win32{
 else:unix{
  message("config unix");
 }
-
 
 
 ICON = qiniu.icns

@@ -28,7 +28,11 @@ void UploadWorker::doWork(QFileInfoList files,
         std::cout << qPrintable(QString("%1\n").arg(localName));
         std::cout << std::endl;
         qiniuReturn qReturn;
-        qReturn = qiniu.uploadFile(bucket.toStdString(),remoteName.toStdString(),UTF8_To_string(localName.toStdString()),location);
+        //for win
+//        qReturn = qiniu.uploadFile(bucket.toStdString(),remoteName.toStdString(),UTF8_To_string(localName.toStdString()),location);
+        //for unix
+        qReturn = qiniu.uploadFile(bucket.toStdString(),remoteName.toStdString(),localName.toStdString(),location);
+
         emit resultReady(i,qReturn);
 //        Sleep(1);
         QThread::currentThread()->sleep(1);
@@ -36,29 +40,30 @@ void UploadWorker::doWork(QFileInfoList files,
 
 }
 
-std::string UploadWorker::UTF8_To_string(const std::string & str)
-{
-    int nwLen = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), -1, NULL, 0);
+//only for win
+//std::string UploadWorker::UTF8_To_string(const std::string & str)
+//{
+//    int nwLen = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), -1, NULL, 0);
 
-    wchar_t * pwBuf = new wchar_t[nwLen + 1];//一定要加1，不然会出现尾巴
-    memset(pwBuf, 0, nwLen * 2 + 2);
+//    wchar_t * pwBuf = new wchar_t[nwLen + 1];//一定要加1，不然会出现尾巴
+//    memset(pwBuf, 0, nwLen * 2 + 2);
 
-    MultiByteToWideChar(CP_UTF8, 0, str.c_str(), str.length(), pwBuf, nwLen);
+//    MultiByteToWideChar(CP_UTF8, 0, str.c_str(), str.length(), pwBuf, nwLen);
 
-    int nLen = WideCharToMultiByte(CP_ACP, 0, pwBuf, -1, NULL, NULL, NULL, NULL);
+//    int nLen = WideCharToMultiByte(CP_ACP, 0, pwBuf, -1, NULL, NULL, NULL, NULL);
 
-    char * pBuf = new char[nLen + 1];
-    memset(pBuf, 0, nLen + 1);
+//    char * pBuf = new char[nLen + 1];
+//    memset(pBuf, 0, nLen + 1);
 
-    WideCharToMultiByte(CP_ACP, 0, pwBuf, nwLen, pBuf, nLen, NULL, NULL);
+//    WideCharToMultiByte(CP_ACP, 0, pwBuf, nwLen, pBuf, nLen, NULL, NULL);
 
-    std::string retStr = pBuf;
+//    std::string retStr = pBuf;
 
-    delete []pBuf;
-    delete []pwBuf;
+//    delete []pBuf;
+//    delete []pwBuf;
 
-    pBuf = NULL;
-    pwBuf = NULL;
+//    pBuf = NULL;
+//    pwBuf = NULL;
 
-    return retStr;
-}
+//    return retStr;
+//}
